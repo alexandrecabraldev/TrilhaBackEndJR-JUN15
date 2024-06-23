@@ -7,9 +7,20 @@ interface DatabaseUserType{
     password_hash:string,
 }
 //database fake, apenas um array em memória
-const databaseUser: DatabaseUserType[] =[]
+export let databaseUser: DatabaseUserType[] =[]
 
 export class InMemoryDatabaseCRUD {
+
+    readUser(){
+        return databaseUser;
+    }
+
+    deleteElement(id:string){
+        const newDatabaseWithoutDeleted= databaseUser.filter((element)=>element.userId!==id)
+        databaseUser = newDatabaseWithoutDeleted;
+        
+        return databaseUser;
+    }
 
     //criação de usuário em um array em memória
     createUser( data: DatabaseUserType ){
