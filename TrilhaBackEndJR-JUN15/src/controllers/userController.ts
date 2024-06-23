@@ -2,12 +2,13 @@ import {Request, Response} from "express"
 import z from "zod"
 import { InMemoryDatabaseCRUD } from "../database/inMemoryDatabase"
 import { databaseUser } from "../database/inMemoryDatabase"
+import { hash } from "bcrypt"
 
 //schema de validação da entrada de dados usando a biblioteca zod
 const createUserBodySchema = z.object({
     userName: z.string(),
     email: z.string().email("Este não é um email válido"),
-    password_hash: z.string()
+    password: z.string()
 })
 
 const deleteUserIdSchema = z.string().uuid()
@@ -15,18 +16,19 @@ const deleteUserIdSchema = z.string().uuid()
 //typagem da validação da entrada de dados
 type CreateUserBodySchemaType = z.infer<typeof createUserBodySchema>
 
+//instancia de um database em memoria, ainda não o database real, apenas um teste
 const databaseCRUD = new InMemoryDatabaseCRUD()
-
+const salt = 4;
 export class UserController{
 
-    createUserController(request: Request, response: Response){
+    async createUserController(request: Request, response: Response){
         
         //validação de dados enviados pelo usuário no body da requisição
-        const { userName, email, password_hash } = createUserBodySchema.parse(request.body)
+        const { userName, email, password } = createUserBodySchema.parse(request.body)
     
-        //instancia de um database em memoria, ainda não o database real, apenas um teste
+        //encriptando a senha
+        const password_hash = await hash(password, salt)
         
-    
         //passando as informações para o database fake
         const userCreated = databaseCRUD.createUser({ 
             userName, 
