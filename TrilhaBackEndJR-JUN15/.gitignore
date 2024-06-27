@@ -1,3 +1,4 @@
 node_modules
 .env
 modelTask.txt
+src/database/prisma
