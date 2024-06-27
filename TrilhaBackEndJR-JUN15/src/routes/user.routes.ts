@@ -1,18 +1,18 @@
 import { Router } from "express"
 import { UserController } from "../controllers/userController";
+import { authMiddleware } from "../middlewares/authMiddleware";
+import { PrismaClient } from "@prisma/client";
 
 export const userRouter = Router();
 
-const userController = new UserController();
-
-userRouter.route('/')
-    .get(userController.readUserController)
+const database = new PrismaClient() 
+const userController = new UserController(database);
 
 userRouter.route('/create')
     .post(userController.createUserController)
 
-userRouter.route('/update/:id')
-    .put(userController.updateUserController)
+userRouter.route('/:id')
+    .get(authMiddleware, userController.readUserController)
 
-userRouter.route('/delete/:id')
-    .delete(userController.deleteUserController)
+userRouter.route('/update/:id')
+    .put(authMiddleware, userController.updateUserController)
