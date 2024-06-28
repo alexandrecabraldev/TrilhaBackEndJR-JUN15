@@ -1,4 +1,4 @@
-# Car Shop Backend
+# TASK LIST API
 
 Este é o backend de uma lista de tarefas, desenvolvido utilizando Nodejs, Express e Sqlite. O projeto fornece APIs para autenticação, gerenciamento de usuários e suas tarefas.
 
