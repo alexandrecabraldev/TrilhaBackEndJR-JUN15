@@ -11,6 +11,11 @@ app.use('/login', loginRouter)
 app.use('/user', userRouter)
 app.use('/task', taskRoute)
 
+app.get('/',(_req, res)=>{
+    return res.status(200).json({
+        "message": "Application Running"
+    })
+})
 
 app.listen(env.PORT,()=>{
     console.log(`server is running on port ${env.PORT}`)
