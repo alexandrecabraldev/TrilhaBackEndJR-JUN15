@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "engines": {
-    "node":"20"
+    "node": "20"
   },
   "scripts": {
     "dev": "tsx watch src/app.ts",
-    "build":"tsc",
+    "build": "tsc && prisma generate",
     "start": "node dist/app.js",
     "prisma:migrate:deploy": "npx prisma migrate deploy --schema=./src/models/prisma/schema.prisma"
   },
