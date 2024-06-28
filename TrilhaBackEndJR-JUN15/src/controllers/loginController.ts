@@ -1,5 +1,5 @@
 import { Request, Response} from "express"
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import z from "zod"
 import jwt from "jsonwebtoken"
 import { env } from "../dotenvConfig";
