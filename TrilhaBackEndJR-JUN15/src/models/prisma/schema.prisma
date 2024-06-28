@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId        String @id @default(uuid())
+  userName      String
+  email         String @unique
+  password_hash String
+  tasks         Task[]
+}
+
+model Task {
+  idTask      String   @id @default(uuid())
+  title       String
+  description String
+  created_at  DateTime @default(now())
+  due_date    DateTime
+  user        User     @relation(fields: [idUser], references: [userId])
+  idUser      String
+}
+
+// task:  
+//   "idTask primaryKey default(uuid)"
+//   "title": "Título da Tarefa" string notNull,
+//   "description": "Descrição detalhada da tarefa" String notNUll,
+//   "created_at": "2024-06-17T14:00:00Z" default(now),  // Data de criação gerada automaticamente
+//   "due_date": "2024-06-20T18:00:00Z" notNull // Data opcional fornecida pelo usuário
+
+// user:
+// "userId": primaryKey default(uuid),
+// "userName": string notNull,
+// "email": email unique notNull,
+// "passwordHash" string notNull
