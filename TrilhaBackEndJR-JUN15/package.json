@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/app.ts",
-    "build": "tsc && prisma generate",
+    "build": "tsc && npx prisma generate",
     "start": "node dist/app.js",
     "prisma:migrate:deploy": "npx prisma migrate deploy --schema=./src/models/prisma/schema.prisma"
   },
